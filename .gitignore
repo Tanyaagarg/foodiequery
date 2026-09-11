@@ -1,0 +1,25 @@
+# Python virtual environment - never commit this, it is huge and machine-specific
+venv/
+__pycache__/
+*.pyc
+
+# Secrets - API keys and database passwords live here. NEVER commit.
+.env
+
+# Raw and cleaned data - large CSV files, keep out of git
+data/raw/*.csv
+data/cleaned/*.csv
+
+# Node / React
+node_modules/
+dist/
+frontend/.env
+
+# Power BI temp files
+*.pbix.tmp
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
