@@ -1,0 +1,113 @@
+/* --------------------------------------------------------------------------
+   index.css
+   Tailwind, plus this project's design tokens.
+
+   Two scales and nothing else:
+     slate   a neutral grey with a slight warm tilt, used for every surface,
+             border and piece of text
+     brand   one orange, used only for the primary action and the active state
+
+   That split is what most shipped products do. Neutrals carry the layout,
+   and the single accent means "this is the thing to click". If the accent
+   shows up in five places it stops meaning anything.
+   -------------------------------------------------------------------------- */
+@import "tailwindcss";
+
+@theme {
+  /* --- neutral surfaces and text ----------------------------------------- */
+  --color-slate-25:  #fbfbfa;
+  --color-slate-50:  #f7f7f6;
+  --color-slate-100: #f0efee;
+  --color-slate-200: #e4e3e1;
+  --color-slate-300: #cfcdca;
+  --color-slate-400: #a3a09c;
+  --color-slate-500: #7a7672;
+  --color-slate-600: #5c5854;
+  --color-slate-700: #423f3c;
+  --color-slate-800: #2a2725;
+  --color-slate-900: #1b1917;
+
+  /* --- brand: one orange, used sparingly --------------------------------- */
+  --color-brand-50:  #fff4ed;
+  --color-brand-100: #ffe4d3;
+  --color-brand-200: #ffc7a8;
+  --color-brand-500: #f05a1f;
+  --color-brand-600: #dd4a12;
+  --color-brand-700: #b83a10;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-slate-50);
+  color: var(--color-slate-800);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Numbers in a table need to line up in columns, so every digit gets the same
+   width. Without this, 4.11 and 3.57 sit at different widths and the column
+   looks ragged. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* One consistent focus ring across every control. Keyboard users need to see
+   where they are, and :focus-visible shows it only for keyboard focus, not
+   after a mouse click. */
+*:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--color-brand-100);
+  color: var(--color-brand-700);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-slate-300);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-slate-400);
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* New messages slide in a few pixels. Short enough to feel instant, long
+   enough to show that something arrived. */
+@keyframes enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.enter {
+  animation: enter 0.18s ease-out both;
+}
+
+/* The typing indicator while the agent works. */
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+  40%           { transform: translateY(-3px); opacity: 1; }
+}
+.dot {
+  animation: bounce-dot 1.2s infinite ease-in-out;
+}
+.dot:nth-child(2) { animation-delay: 0.15s; }
+.dot:nth-child(3) { animation-delay: 0.3s; }

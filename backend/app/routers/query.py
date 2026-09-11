@@ -31,12 +31,27 @@ router = APIRouter(prefix="/api")
 # question that is empty or 5,000 characters long is rejected before our code
 # ever sees it.
 
+class HistoryTurn(BaseModel):
+    """One earlier exchange: what was asked, and the SQL that answered it."""
+
+    question: str = Field(..., max_length=500)
+    sql: str = Field(..., max_length=4000)
+
+
 class QueryRequest(BaseModel):
     question: str = Field(
         ...,
         min_length=3,
         max_length=500,
         description="A question about Bangalore restaurants, in plain English.",
+    )
+    history: list[HistoryTurn] = Field(
+        default_factory=list,
+        max_length=8,
+        description=(
+            "Recent answered turns, oldest first. Lets the agent understand "
+            "follow-ups such as 'same for Koramangala' or 'what about under 500?'"
+        ),
     )
 
 
@@ -104,11 +119,12 @@ def ask(request: Request, payload: QueryRequest) -> QueryResponse:
     """
     settings = get_settings()
     question = payload.question.strip()
-    logger.info("question: %s", question)
+    history = [turn.model_dump() for turn in payload.history]
+    logger.info("question: %s  (history: %s turns)", question, len(history))
 
     # --- 1 and 2: generate and validate ------------------------------------
     try:
-        sql = generate_sql(question)
+        sql = generate_sql(question, history)
     except CannotAnswerError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     except UnsafeQueryError as exc:

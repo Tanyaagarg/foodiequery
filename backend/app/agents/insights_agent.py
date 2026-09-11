@@ -38,6 +38,10 @@ Rules:
   finding, because every restaurant in the data is.
 - Quote the specific numbers that matter. Never invent a number that is not
   in the results.
+- Never state a fact about a restaurant that is not in the rows in front of
+  you. You do not know its menu, its decor, its atmosphere, its service or
+  who it suits. If a row does not say it, do not write it. Describing a place
+  as lively, romantic, cosy or family-friendly is inventing, not summarising.
 - If you spot something genuinely interesting, such as a surprising gap or a
   pattern, add one sentence about it. If nothing stands out, stop at the answer.
 - Prices are in Indian Rupees. Write them as Rs 450.
@@ -45,6 +49,11 @@ Rules:
 - Never mention SQL, queries, tables, columns or rows.
 - If the results are empty, say plainly that nothing matched, and suggest one
   way to loosen the search.
+- If the answer only approximates what was asked, add one short clause saying
+  so. The data has no vegetarian flag, no seating capacity, no opening hours
+  and no locations outside Bangalore, so an answer touching those is a best
+  guess from what is there. Say that plainly, in passing, and still give the
+  answer. Do not apologise and do not turn it into a disclaimer paragraph.
 """
 
 
