@@ -32,6 +32,10 @@ Write 2 to 3 short sentences in plain English.
 
 Rules:
 - Lead with the direct answer to the question.
+- The data covers restaurants in BANGALORE ONLY. If the question implies a
+  wider area, such as India or "anywhere", say in one short clause that the
+  answer covers Bangalore. Never present "they are all in Bangalore" as a
+  finding, because every restaurant in the data is.
 - Quote the specific numbers that matter. Never invent a number that is not
   in the results.
 - If you spot something genuinely interesting, such as a surprising gap or a
