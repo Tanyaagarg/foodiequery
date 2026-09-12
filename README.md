@@ -241,26 +241,6 @@ docs/          screenshots
 
 ---
 
-## What I learned
-
-**The hardest part of a data project is not the model.** It is discovering that 51,717 rows are really 12,464, and that if you miss it every chart you build is confidently wrong.
-
-**Prompts are a product surface.** The agent originally refused anything vaguely worded. Rewriting its instructions to assume every question is reasonable and asked in a hurry, and to map everyday words like "cheap" and "best" onto real columns, turned a frustrating tool into a usable one. Same model, same data, better instructions.
-
-**Defence in depth is not paranoia.** I wrote the SQL guard, then found a real bypass in it: MySQL executes `/*! ... */` where every other database ignores it. The read-only database account would have stopped an attack that got past my code. One layer is one bug away from none.
-
-**LLMs need to be told what is missing, not just what exists.** Once the schema notes spelled out that there are no opening hours, no phone numbers and no seating capacity, the agent stopped inventing substitutes and started giving honest refusals.
-
-**Charts lie by default.** A bar chart of average rating on a 0 to 5 axis makes a 0.5 difference invisible. Cutting the axis makes it visible, and also makes it exaggerated. The fix was labels on every bar, so the reader sees the actual numbers either way.
-
----
-
-## Resume line
-
-> **FoodieQuery** — Built a natural-language analytics tool over 12,464 Bangalore restaurants: Python/pandas ETL into a normalised MySQL schema, a FastAPI backend with two LLM agents (text-to-SQL and insight generation) protected by a three-layer safety model including a SELECT-only database role, a React chat interface, and a five-page Power BI dashboard connected live over ODBC.
-
----
-
 ## Licence
 
 MIT. The dataset belongs to its original authors on Kaggle.
