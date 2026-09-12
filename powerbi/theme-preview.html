@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>FoodieQuery — theme preview</title>
+<style>
+  :root {
+    --page:      #F4F2EE;
+    --card:      #FFFFFF;
+    --rule:      #E7E3DD;
+    --grid:      #F0EDE8;
+    --ink:       #171514;
+    --ink-2:     #57534E;
+    --ink-3:     #8A837C;
+    --ink-4:     #A8A29E;
+
+    --s1: #D2541F;  /* burnt orange  */
+    --s2: #008C79;  /* deep teal     */
+    --s3: #E0A32A;  /* ochre         */
+    --s4: #A8467A;  /* plum          */
+    --s5: #5D8A2E;  /* olive         */
+    --s6: #3C72C0;  /* slate blue    */
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #D7D3CC;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* The 16:9 canvas, the same shape as a Power BI report page. */
+  .page {
+    width: 1280px;
+    height: 720px;
+    background: var(--page);
+    padding: 20px 22px;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 12px;
+    box-shadow: 0 2px 18px rgba(23,21,20,.18);
+  }
+
+  /* ---- header ---------------------------------------------------------- */
+  .header { display: flex; align-items: flex-end; justify-content: space-between; }
+
+  .wordmark {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .tick { width: 3px; height: 30px; background: var(--s1); border-radius: 2px; }
+  .wordmark h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+  }
+  .wordmark p {
+    margin: 2px 0 0;
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+
+  .pagetag {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    padding-bottom: 3px;
+  }
+
+  /* ---- KPI row --------------------------------------------------------- */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+
+  .kpi .label {
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-3);
+  }
+  .kpi .value {
+    margin-top: 4px;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1.05;
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi .foot { margin-top: 2px; font-size: 10px; color: var(--ink-4); }
+
+  /* ---- chart grid ------------------------------------------------------ */
+  .grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1.35fr 0.8fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .panel { display: flex; flex-direction: column; min-height: 0; }
+  .panel h2 {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .panel .note { font-size: 9px; color: var(--ink-4); margin: 8px 0 0; }
+
+  /* horizontal bars */
+  .hbars { display: flex; flex-direction: column; gap: 6px; flex: 1; justify-content: center; }
+  .hrow  { display: grid; grid-template-columns: 92px 1fr 36px; align-items: center; gap: 8px; }
+  .hrow .name { font-size: 9px; color: var(--ink-2); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .track { height: 11px; }
+  .bar   { height: 11px; border-radius: 0 3px 3px 0; background: var(--s1); }
+  .hrow .val { font-size: 9px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+  /* vertical columns */
+  .vbars { flex: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; align-items: end; padding-top: 14px; }
+  .vcol  { display: flex; flex-direction: column; align-items: center; gap: 5px; height: 100%; justify-content: flex-end; }
+  .vcol .col { width: 78%; background: var(--s2); border-radius: 3px 3px 0 0; }
+  .vcol .n   { font-size: 9px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .vcol .cap { font-size: 8px; color: var(--ink-2); text-align: center; line-height: 1.25; }
+
+  /* slicer */
+  .slicer .head {
+    font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-3); margin-bottom: 8px;
+  }
+  .dropdown {
+    border: 1px solid var(--rule); border-radius: 4px;
+    padding: 6px 8px; font-size: 10px; color: var(--ink-2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .opt { display: flex; align-items: center; gap: 7px; font-size: 10px; color: var(--ink-2); padding: 3px 0; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--ink-4); }
+  .dot.on { border-color: var(--s1); background: radial-gradient(circle, var(--s1) 45%, #fff 47%); }
+
+  .swatches { display: flex; gap: 5px; margin-top: 10px; }
+  .sw { width: 15px; height: 15px; border-radius: 3px; }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- header -->
+    <div class="header">
+      <div class="wordmark">
+        <div class="tick"></div>
+        <div>
+          <h1>FoodieQuery</h1>
+          <p>Bangalore restaurant market · 12,464 restaurants · Zomato</p>
+        </div>
+      </div>
+      <div class="pagetag">Overview</div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpis">
+      <div class="card kpi">
+        <div class="label">Restaurants</div>
+        <div class="value">12,464</div>
+        <div class="foot">after removing duplicate listings</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Avg cost for two</div>
+        <div class="value">₹487</div>
+        <div class="foot">12,377 with a price</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Avg rating</div>
+        <div class="value">3.63</div>
+        <div class="foot">9,453 rated</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Neighbourhoods</div>
+        <div class="value">93</div>
+        <div class="foot">107 cuisines</div>
+      </div>
+    </div>
+
+    <!-- charts -->
+    <div class="grid">
+
+      <!-- busiest areas -->
+      <div class="card panel">
+        <h2>Busiest areas</h2>
+        <div class="hbars">
+          <div class="hrow"><div class="name">Whitefield</div><div class="track"><div class="bar" style="width:100%"></div></div><div class="val">885</div></div>
+          <div class="hrow"><div class="name">Electronic City</div><div class="track"><div class="bar" style="width:82%"></div></div><div class="val">730</div></div>
+          <div class="hrow"><div class="name">BTM</div><div class="track"><div class="bar" style="width:82%"></div></div><div class="val">728</div></div>
+          <div class="hrow"><div class="name">HSR</div><div class="track"><div class="bar" style="width:80%"></div></div><div class="val">704</div></div>
+          <div class="hrow"><div class="name">Marathahalli</div><div class="track"><div class="bar" style="width:77%"></div></div><div class="val">683</div></div>
+          <div class="hrow"><div class="name">Indiranagar</div><div class="track"><div class="bar" style="width:59%"></div></div><div class="val">523</div></div>
+          <div class="hrow"><div class="name">JP Nagar</div><div class="track"><div class="bar" style="width:58%"></div></div><div class="val">518</div></div>
+          <div class="hrow"><div class="name">Bannerghatta Rd</div><div class="track"><div class="bar" style="width:53%"></div></div><div class="val">471</div></div>
+          <div class="hrow"><div class="name">Jayanagar</div><div class="track"><div class="bar" style="width:41%"></div></div><div class="val">366</div></div>
+          <div class="hrow"><div class="name">Bellandur</div><div class="track"><div class="bar" style="width:41%"></div></div><div class="val">361</div></div>
+        </div>
+      </div>
+
+      <!-- rating spread -->
+      <div class="card panel">
+        <h2>How ratings are spread</h2>
+        <div class="vbars">
+          <div class="vcol"><div class="n">252</div><div class="col" style="height:6%"></div><div class="cap">4.5 and above</div></div>
+          <div class="vcol"><div class="n">1,984</div><div class="col" style="height:49%"></div><div class="cap">4.0 to 4.4</div></div>
+          <div class="vcol"><div class="n">4,062</div><div class="col" style="height:100%"></div><div class="cap">3.5 to 3.9</div></div>
+          <div class="vcol"><div class="n">2,462</div><div class="col" style="height:61%"></div><div class="cap">3.0 to 3.4</div></div>
+          <div class="vcol"><div class="n">693</div><div class="col" style="height:17%"></div><div class="cap">Below 3.0</div></div>
+          <div class="vcol"><div class="n">3,011</div><div class="col" style="height:74%; background:var(--ink-4)"></div><div class="cap">Not rated</div></div>
+        </div>
+        <p class="note">Grey bar is restaurants nobody has rated yet, excluded from every average.</p>
+      </div>
+
+      <!-- filters -->
+      <div class="card panel slicer" style="grid-row: span 2;">
+        <div class="head">Area</div>
+        <div class="dropdown"><span>All</span><span style="color:var(--ink-4)">⌄</span></div>
+
+        <div class="head" style="margin-top:18px">Price band</div>
+        <div class="opt"><span class="dot on"></span>All</div>
+        <div class="opt"><span class="dot"></span>Under ₹300</div>
+        <div class="opt"><span class="dot"></span>₹300 to 599</div>
+        <div class="opt"><span class="dot"></span>₹600 to 999</div>
+        <div class="opt"><span class="dot"></span>₹1000 to 1499</div>
+        <div class="opt"><span class="dot"></span>₹1500 and above</div>
+
+        <div class="head" style="margin-top:22px">Palette</div>
+        <div class="swatches">
+          <div class="sw" style="background:var(--s1)"></div>
+          <div class="sw" style="background:var(--s2)"></div>
+          <div class="sw" style="background:var(--s3)"></div>
+          <div class="sw" style="background:var(--s4)"></div>
+          <div class="sw" style="background:var(--s5)"></div>
+          <div class="sw" style="background:var(--s6)"></div>
+        </div>
+        <p class="note">Slot 1 carries almost every chart. The rest appear only when a chart needs more than one series.</p>
+      </div>
+
+      <!-- cuisines -->
+      <div class="card panel" style="grid-column: span 2;">
+        <h2>Most common cuisines</h2>
+        <div class="hbars">
+          <div class="hrow" style="grid-template-columns:92px 1fr 44px"><div class="name">North Indian</div><div class="track"><div class="bar" style="width:100%"></div></div><div class="val">5,077</div></div>
+          <div class="hrow" style="grid-template-columns:92px 1fr 44px"><div class="name">Chinese</div><div class="track"><div class="bar" style="width:72%"></div></div><div class="val">3,643</div></div>
+          <div class="hrow" style="grid-template-columns:92px 1fr 44px"><div class="name">South Indian</div><div class="track"><div class="bar" style="width:47%"></div></div><div class="val">2,396</div></div>
+          <div class="hrow" style="grid-template-columns:92px 1fr 44px"><div class="name">Fast Food</div><div class="track"><div class="bar" style="width:43%"></div></div><div class="val">2,190</div></div>
+          <div class="hrow" style="grid-template-columns:92px 1fr 44px"><div class="name">Biryani</div><div class="track"><div class="bar" style="width:35%"></div></div><div class="val">1,773</div></div>
+          <div class="hrow" style="grid-template-columns:92px 1fr 44px"><div class="name">Desserts</div><div class="track"><div class="bar" style="width:25%"></div></div><div class="val">1,289</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
